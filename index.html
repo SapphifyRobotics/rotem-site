@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAPPHIFY ROTEM — open FRC CAN devices</title>
+<meta name="description" content="ROTEM is a series of open CAN FD devices for FIRST Robotics Competition. One published protocol, one MIT library, one tool that runs on Linux.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #16181d; --muted: #5b6472; --line: #e3e6ea;
+    --accent: #1d4ed8; --card: #f7f8fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1115; --fg: #e8eaed; --muted: #9aa4b2; --line: #262b33;
+            --accent: #7aa2f7; --card: #171a20; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 2rem; margin-bottom: 2.5rem; }
+  .brand { font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 .75rem; }
+  h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.15; margin: 0 0 .75rem; letter-spacing: -.02em; }
+  .lede { font-size: 1.1rem; color: var(--muted); margin: 0; }
+  h2 { font-size: 1.15rem; margin: 2.75rem 0 .75rem; letter-spacing: -.01em; }
+  p { margin: 0 0 1rem; }
+  ul { margin: 0 0 1rem; padding-left: 1.15rem; }
+  li { margin-bottom: .4rem; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: currentColor; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.25rem; margin: 1.5rem 0; }
+  .card p:last-child { margin-bottom: 0; }
+  .status { font-size: .9rem; color: var(--muted); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em;
+         background: var(--card); padding: .12em .35em; border-radius: 4px; }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+           font-size: .875rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="brand">Sapphify LLC</p>
+  <h1>ROTEM — a series of open CAN devices for FRC</h1>
+  <p class="lede">One published protocol. One MIT library. One tool that runs on Linux.<br>First device: the ROTEM AHRS.</p>
+</header>
+
+<div class="card">
+  <p class="status"><strong>Status:</strong> hardware v1.0 rev B is a routed, ERC/DRC-clean
+  first-article design. First boards are being built. The CAN protocol draft is public below.
+  Nothing on this page is for sale yet, and no performance figure is claimed until we have
+  measured it and published the method alongside it.</p>
+</div>
+
+<h2>The first device: ROTEM AHRS</h2>
+<p>A 50 × 50 mm four-layer CAN FD module built around an ICM-45686 IMU and a fitted MMC5983MA
+magnetometer, with an STM32U575, protected 6–28 V input, onboard logging flash and a USB-C
+device port. It reports orientation to robot code over the FRC CAN bus, and it reports how
+much it trusts that orientation.</p>
+
+<h2>What is different about it</h2>
+<ul>
+  <li><strong>It tells you when it is wrong.</strong> Yaw uncertainty from the filter covariance,
+      live bias estimate, vibration level and clipping counters, magnetic-disturbance state and
+      calibration age are first-class signals on the bus — surfaced through the WPILib Alert API,
+      not buried in a debug build.</li>
+  <li><strong>Per-unit factory calibration.</strong> Gyro scale factor, cross-axis misalignment
+      and temperature-dependent bias, written to device flash and shipped with a serial-numbered
+      certificate. Scale-factor error is what produces degrees of drift per rotation, and it
+      cannot be fixed in robot code.</li>
+  <li><strong>Onboard black-box recorder.</strong> Full state logged to onboard flash independent
+      of robot code and independent of the bus, downloaded over USB-C as a native WPILog that
+      opens directly in AdvantageScope. No vendor tool, no format conversion.</li>
+  <li><strong>Tooling that runs anywhere.</strong> A browser configurator over Web Serial, plus a
+      native desktop app for Windows, macOS and <em>Linux</em>, plus a CLI. It works on a bench
+      with only USB power — no roboRIO, no deployed code, no bus.</li>
+  <li><strong>Open and unlicensed.</strong> The full CAN specification is published, the
+      libraries are MIT, and no feature — including synchronised sampling — costs money or
+      requires companion hardware.</li>
+</ul>
+
+<h2>The series</h2>
+<p>ROTEM is a family, not a single product. Every ROTEM device shares one FIRST manufacturer ID,
+one published protocol, one vendor library, one configuration tool and one log format. Add
+<code>ROTEMLib</code> once and every ROTEM device you ever buy is already supported — no second
+vendordep, no second tool, no second set of habits to learn.</p>
+<ul>
+  <li><strong>ROTEM AHRS</strong> — CAN FD attitude and heading reference. First article built.</li>
+  <li><strong>ROTEM absolute encoder</strong> — in design.</li>
+  <li><strong>ROTEM USB-CAN FD bridge</strong> — in design.</li>
+</ul>
+
+<h2>Documents</h2>
+<ul>
+  <li><a href="https://github.com/sapphify/rotem-can-spec">CAN protocol specification (draft v0.9)</a>
+      — every frame, field, scaling and status bit, so anyone can write their own driver.</li>
+  <li><a href="https://github.com/sapphify/rotem-lib">ROTEMLib</a> — the WPILib vendor library.</li>
+  <li><a href="https://github.com/sapphify">All repositories</a>.</li>
+</ul>
+
+<h2>Where it is going</h2>
+<p>ROTEM targets the 2027 control system: CAN FD and multiple buses on Systemcore, with classic
+CAN 2.0B retained for roboRIO teams. Java, C++ and Python at parity, with drop-in wrappers so
+migration is one line, plus YAGSL and AdvantageKit integrations.</p>
+<p>Before release we will publish an open test harness and raw datasets comparing ROTEM against
+the existing FRC options on the same chassis — rotation-count error, match-duration drift,
+vibration response, collision recovery. Reproducible by any team. That is the only kind of
+performance claim worth making.</p>
+
+<h2>Contact</h2>
+<p>Teams, mentors and distributors: <a href="mailto:hello@sapphify.com">hello@sapphify.com</a>.
+We are looking for a small number of beta teams with real chassis time.</p>
+
+<footer>
+  SAPPHIFY LLC · Hardware and software in-house · Protocol CC BY 4.0, libraries MIT
+</footer>
+
+</div>
+</body>
+</html>
