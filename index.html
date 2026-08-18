@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SAPPHIFY ROTEM — open FRC CAN devices</title>
-<meta name="description" content="ROTEM is a series of open CAN FD devices for FIRST Robotics Competition. One published protocol, one MIT library, one tool that runs on Linux.">
+<title>ROTEM — open FRC AHRS</title>
+<meta name="description" content="ROTEM is an open CAN FD attitude and heading reference for FIRST Robotics Competition. Published protocol, MIT library, tooling that runs on Linux.">
 <style>
   :root {
     --bg: #ffffff; --fg: #16181d; --muted: #5b6472; --line: #e3e6ea;
@@ -45,8 +45,8 @@
 
 <header>
   <p class="brand"><a href="https://sapphify.com" style="color:inherit">Sapphify LLC</a></p>
-  <h1>ROTEM — a series of open CAN devices for FRC</h1>
-  <p class="lede">One published protocol. One MIT library. One tool that runs on Linux.<br>First device: the ROTEM AHRS.</p>
+  <h1>ROTEM — an open CAN FD heading reference for FRC</h1>
+  <p class="lede">It reports your heading, and it reports how much it trusts it.<br>Published protocol, MIT library, tooling that runs on Linux.</p>
 </header>
 
 <div class="card">
@@ -56,7 +56,7 @@
   measured it and published the method alongside it.</p>
 </div>
 
-<h2>The first device: ROTEM AHRS</h2>
+<h2>What it is</h2>
 <p>A 50 × 50 mm four-layer CAN FD module built around an ICM-45686 IMU and a fitted MMC5983MA
 magnetometer, with an STM32U575, protected 6–28 V input, onboard logging flash and a USB-C
 device port. It reports orientation to robot code over the FRC CAN bus, and it reports how
@@ -83,23 +83,23 @@ much it trusts that orientation.</p>
       requires companion hardware.</li>
 </ul>
 
-<h2>The series</h2>
-<p>ROTEM is a family, not a single product. Every ROTEM device shares one FIRST manufacturer ID,
-one published protocol, one vendor library, one configuration tool and one log format. Add
-<code>ROTEMLib</code> once and every ROTEM device you ever buy is already supported — no second
-vendordep, no second tool, no second set of habits to learn.</p>
+<h2>One library, every device</h2>
+<p>ROTEM is the first of several SAPPHIFY devices, and they all share one FIRST manufacturer ID,
+one published protocol, one vendor library, one configuration tool and one log format. Install
+<code>SapphifyLib</code> once and every SAPPHIFY device you ever buy is already supported — no
+second vendordep, no second tool, no second set of habits to learn.</p>
 <ul>
-  <li><strong>ROTEM AHRS</strong> — CAN FD attitude and heading reference. First article built.</li>
-  <li><strong>ROTEM absolute encoder</strong> — in design.</li>
-  <li><strong>ROTEM USB-CAN FD bridge</strong> — in design.</li>
+  <li><strong>ROTEM</strong> — CAN FD attitude and heading reference. First article built.</li>
+  <li>An absolute encoder — in design.</li>
+  <li>A USB-CAN FD bridge — in design.</li>
 </ul>
 
 <h2>Documents</h2>
 <ul>
-  <li><a href="https://github.com/sapphify/rotem-can-spec">CAN protocol specification (draft v0.9)</a>
+  <li><a href="https://github.com/Sapphify/sapphify-can-spec">CAN protocol specification (draft v0.9)</a>
       — every frame, field, scaling and status bit, so anyone can write their own driver.</li>
-  <li><a href="https://github.com/sapphify/rotem-lib">ROTEMLib</a> — the WPILib vendor library.</li>
-  <li><a href="https://github.com/sapphify">All repositories</a>.</li>
+  <li><a href="https://github.com/Sapphify/sapphify-lib">SapphifyLib</a> — the WPILib vendor library.</li>
+  <li><a href="https://github.com/Sapphify">All repositories</a>.</li>
 </ul>
 
 <h2>Where it is going</h2>
